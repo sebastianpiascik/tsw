@@ -1,0 +1,33 @@
+body {
+    background-image: url('papier.gif');
+}
+.adres {
+    margin-left: auto;
+    margin-right: auto;
+    width: 12em;
+    border: 2px solid black;
+    margin-top: 20px;
+    background-color: yellow;
+    padding: 10px;
+}
+span{
+    &.nazwisko {
+        display: block;
+        font-weight: bold;
+        border-bottom: thin solid blue;
+        border-top: thin solid blue;
+        color:blue;
+    }
+    &.ulica {
+        display: block;
+        color:green;
+    }
+    &.kod {
+        color:red;
+    }
+    &.miejscowosc {
+    }
+    &.telefon {
+        display: block;
+    }
+}

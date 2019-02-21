@@ -1,0 +1,34 @@
+.absolute(@top:0, @left: 50%){
+    position: absolute;
+    top: @top;
+    left: @left;
+}
+
+.bordered(@color: red){
+    border: 2px solid @color;
+}
+
+.bg(@color: yellow){
+    background-color: @color;
+}
+
+.div{
+    width: 300px;
+    height: 150px;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.A{
+    .div;
+    .absolute(0,46%);
+    .bordered;
+    .bg;
+}
+.B{
+    .div;
+    .absolute(10%,54%);
+    .bordered(blue);
+    .bg(white);
+}
