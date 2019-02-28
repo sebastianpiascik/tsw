@@ -1,0 +1,63 @@
+body{
+    background-color: #ededed;
+}
+#menu{
+    width: 26%;
+    float: left;
+    padding-top: 50px;
+    box-sizing: border-box;
+    span{
+        display: block;
+        text-align: center;
+        padding: 0 10px;
+        a{
+            color:#666;
+            background-color: #f9f9f9;
+            display: block;
+            padding: 5px;
+            border-bottom:1px solid black;
+            border-right:1px solid black;
+            border-left:1px solid #ccc;
+            border-top:1px solid #ccc;
+            text-decoration: none;
+            &:hover{
+                border-bottom:1px solid #ccc;
+                border-right:1px solid #ccc;
+                border-left:1px solid black;
+                border-top:1px solid black;
+            }
+            &:visited{
+                border-bottom:1px solid #ccc;
+                border-right:1px solid #ccc;
+                border-left:1px solid black;
+                border-top:1px solid black;
+            }
+        }
+    }
+}
+
+.fixed{
+    width: 100%;
+    background-color: #dddddd;
+    position: fixed;
+    left: 0;
+    padding: 10px;
+}
+
+#tresc{
+    width: 74%;
+    float: left;
+    padding: 50px;
+    box-sizing: border-box;
+    border-left: 3px solid #bbbbbb;
+    #naglowek{
+        .fixed;
+        top: 0;
+        border-bottom: 1px solid #000;
+    }
+    #stopka{
+        .fixed;
+        bottom: 0;
+        border-top: 1px solid #000;
+    }
+}
