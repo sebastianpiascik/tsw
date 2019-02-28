@@ -1,0 +1,24 @@
+#menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 5px;
+  border-bottom: 3px solid black;
+  background-color: #fff;
+}
+#menu span {
+  display: inline-block;
+}
+#menu span a {
+  padding: 2px;
+  display: block;
+  color: brown;
+  text-decoration: none;
+  border: 1px solid brown;
+}
+#tresc {
+  width: 600px;
+  margin: 0 auto;
+}

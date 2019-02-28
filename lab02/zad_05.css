@@ -1,0 +1,69 @@
+body {
+  background-color: #ededed;
+}
+#menu {
+  width: 26%;
+  float: left;
+  padding-top: 50px;
+  box-sizing: border-box;
+}
+#menu span {
+  display: block;
+  text-align: center;
+  padding: 0 10px;
+}
+#menu span a {
+  color: #666;
+  background-color: #f9f9f9;
+  display: block;
+  padding: 5px;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  text-decoration: none;
+}
+#menu span a:hover {
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+}
+#menu span a:visited {
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+}
+.fixed {
+  width: 100%;
+  background-color: #dddddd;
+  position: fixed;
+  left: 0;
+  padding: 10px;
+}
+#tresc {
+  width: 74%;
+  float: left;
+  padding: 50px;
+  box-sizing: border-box;
+  border-left: 3px solid #bbbbbb;
+}
+#tresc #naglowek {
+  width: 100%;
+  background-color: #dddddd;
+  position: fixed;
+  left: 0;
+  padding: 10px;
+  top: 0;
+  border-bottom: 1px solid #000;
+}
+#tresc #stopka {
+  width: 100%;
+  background-color: #dddddd;
+  position: fixed;
+  left: 0;
+  padding: 10px;
+  bottom: 0;
+  border-top: 1px solid #000;
+}
