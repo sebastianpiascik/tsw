@@ -2,6 +2,13 @@
 
 * { margin: 0; padding: 0; }
 
+.background-lighten(@n, @i: 2) when (@i =< @n) {
+  &:nth-child(@{i}) {
+    background-color: lighten(@gray,@i * 10%);
+  }
+  .background-lighten(@n, (@i + 1));
+}
+
 #outer{
     width: 100%;
     height: 100vh;
@@ -19,11 +26,6 @@
         font-weight: 700;
         font-size: 20px;
         font-family: sans-serif;
-        &:nth-child(2){
-            background-color: lighten(@gray,10%);
-        }
-        &:nth-child(3){
-            background-color: lighten(@gray,20%);
-        }
+        .background-lighten(3);
     }
 }
