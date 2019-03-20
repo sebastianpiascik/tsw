@@ -1,12 +1,10 @@
 /* jshint strict: global, esversion: 6, devel: true */
 "use strict";
 
-let tekst = 'Ala i\nAs poszli w las';
+let tekst = "Ala i\nAs poszli w las";
 
-function nbsp(txt){
-    txt = txt.replace(/ (a|i|o|u|w|z)(\n| )/g, " $1&nbsp;");
-    
-    return txt;
-}
+String.prototype.nbsp2 = function(){
+    return this.replace(/ (a|i|o|u|w|z)(\n| )/g, " $1&nbsp;");
+};
 
-console.log(nbsp(tekst));
+console.log(tekst.nbsp2());

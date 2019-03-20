@@ -12,18 +12,19 @@ let dane = {
   pesel: "97042176329"
 };
 
-function podstaw(szablon,dane) {
-  let variables = szablon.match(/{[a-zA-Z]*}/g);
+String.prototype.podstaw = function(dane){
+  let variables = this.match(/{[a-zA-Z]*}/g);
+  let that = this;
 
   variables.forEach(function(el){
     let elWithoutBrackets = el.slice(0,-1).substring(1);
     if ( dane.hasOwnProperty(elWithoutBrackets) ) {
         let re = new RegExp(`${el}`, 'gi');
-        szablon = szablon.replace(re,dane[elWithoutBrackets]);
+        that = that.replace(re,dane[elWithoutBrackets]);
     }
   });
 
-  return szablon;
-}
+  return that;
+};
 
-console.log(podstaw(szablon,dane));
+console.log(szablon.podstaw(dane));
