@@ -12,8 +12,13 @@ const fib = (arg)  => {
 };
 
 const memo = (cache, fun) => {
-    console.log('memo');
-    return 1;
+    return function(arg){
+        if(typeof cache[arg] !== 'undefined'){
+            return cache[arg];
+        } else{
+            return (cache[arg] = fibonacci(arg - 1) + fibonacci(arg - 2));
+        }
+    };
 };
 
 const fibonacci = memo([0, 1], (recur, n) => {
@@ -21,6 +26,6 @@ const fibonacci = memo([0, 1], (recur, n) => {
 });
 
 
-let n = 5;
-console.log(fib(5));
+let n = 7;
+console.log(fib(n));
 console.log(fibonacci(n));
