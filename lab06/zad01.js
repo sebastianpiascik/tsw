@@ -5,14 +5,14 @@ const fun1 = (value,cb) => {
     setTimeout(() => {
         console.log(`fun1: ${value}`);
         cb(value+value);
-    }, 2000);
+    }, 3000);
 };
 
 const fun2 = (value,cb) => {
       setTimeout(() => {
         console.log(`fun2: ${value}`);
         cb(value+value);
-      }, 2000);
+      }, 100);
 };
 
 const callback = (value) => {
