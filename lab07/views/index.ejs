@@ -1,0 +1,51 @@
+<%- include('partials/header.ejs') %>
+
+<div class="game">
+  <div class="back-home"><<span></span></div>
+  <div class="game__title">
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+  </div>
+  <div class="game__welcome">
+    <div class="game__welcome__buttons">
+      <button id="welcomeButtonLoad" class="button-welcome">
+        Load previous game
+      </button>
+      <button id="welcomeButtonCreate" class="button-welcome">
+        Create new game
+      </button>
+    </div>
+  </div>
+  <div class="game__new">
+    <form method="post" action="/game/new" class="form form--create">
+      <div class="form__element">
+        <label for="size">Wielkość: </label>
+        <input type="number" name="size" id="size" value="5" />
+      </div>
+      <div class="form__element">
+        <label for="colors">Ilość kolorów: </label>
+        <input type="number" name="colors" id="colors" value="5" />
+      </div>
+      <div class="form__element">
+        <label for="steps">Ilość ruchów: </label>
+        <input type="number" name="steps" id="steps" value="5" />
+      </div>
+      <div class="form__element">
+        <button id="createNewGame" class="form__button form__button--newgame">
+          Nowa gra
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="game__moves">
+    <div class="game__moves__table"></div>
+    <button id="checkColors">
+      Sprawdź kolory
+    </button>
+  </div>
+  <div class="game__progress">
+    <ul></ul>
+  </div>
+</div>
+
+<%- include('partials/footer.ejs') %>
