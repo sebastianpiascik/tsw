@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if(currentGame.moves){
       filledMovesNumber = currentGame.moves.length;
     }
-    console.log(filledMovesNumber);
     let movesTable = createNode("div", { class: "game-table" });
     for (let i = currentGame.steps+filledMovesNumber; i >= 1; i--) {
       let movesTableRow = createNode("div", {
@@ -67,7 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
     currentGame.moves.forEach(element => {
 
       element.move.forEach((el, index) => {
-        console.log(index + ':' + el);
         let colorElement = document.querySelector(
           `.game-table__row__element-${currentStep}${index+1} button`
         );
@@ -134,11 +132,14 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const buildResultUI = gameStatus => {
+    localStorage.clear();
+    let welcomeButtonLoad = document.getElementById("welcomeButtonLoad");
     let movesContainer = document.querySelector(".game__moves__table");
     let progressScreen = document.querySelector(".game__progress");
     let checkColorsButton = document.getElementById("checkColors");
     progressScreen.style.display = "none";
     checkColorsButton.style.display = "none";
+    welcomeButtonLoad.style.display = "none";
 
     if (gameStatus === 1) {
       movesContainer.innerHTML = "<h2>You won! The end</h2>";
@@ -153,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const selectColor = e => {
     if (selectedColors.length == currentGame.size) {
-      console.log("Nie można wykonać ruchu");
+      printError("Nie można wykonać ruchu");
       return;
     }
     let selectedColor = Number(e.target.dataset.color);
@@ -348,8 +349,6 @@ document.addEventListener("DOMContentLoaded", () => {
         currentStep = 1;
         selectedColors = [];
 
-        localStorage.setItem("gameId", jsonResponse.game);
-
         printGameProgress(
           `Pobrano poprzednią grę, id: ${jsonResponse.game}, wielkość: ${
             jsonResponse.size
@@ -360,8 +359,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         buildPreviousGameUI();
         showGameScreen();
-      } else {
-        console.log("Nie można wykonać ruchu");
       }
     };
   };
@@ -372,11 +369,17 @@ document.addEventListener("DOMContentLoaded", () => {
     let gameScreen = document.querySelector(".game__moves");
     let progressScreen = document.querySelector(".game__progress");
     let backHomeArrow = document.querySelector(".back-home");
+    let welcomeButtonLoad = document.getElementById("welcomeButtonLoad");
     backHomeArrow.style.display = "none";
     welcomeScreen.style.display = "block";
     newGameScreen.style.display = "none";
     gameScreen.style.display = "none";
     progressScreen.style.display = "none";
+    if (localStorage.getItem("gameId")) {
+      welcomeButtonLoad.style.display = "inline-block";
+    } else{
+      welcomeButtonLoad.style.display = "none";
+    }
   };
 
   const showNewGameScreen = () => {

@@ -2,10 +2,12 @@
 
 const uuidv1 = require("uuid/v1");
 
-const generateRandomCode = () => {
+const generateRandomCode = (colorsAmount, size) => {
   let code = [];
+  let random, lastRandom;
+  let min=1,max=colorsAmount;
 
-  for (let i = 0; i < req.body.size; i++) {
+  for (let i = 0; i < size; i++) {
     if (lastRandom === undefined) {
       random = Math.floor(Math.random() * (max - min + 1)) + min;
     } else {
@@ -19,21 +21,27 @@ const generateRandomCode = () => {
   return code;
 };
 
-const generateRandomCode2 = () => {
+const generateRandomCode2 = (colorsAmount, size) => {
   let code = [];
+  let colorsIndexes = [];
+  let min=0,max=0,randomIndex = 0;
 
-  let arr = [];
+  for (let j = 0; j < colorsAmount; j++){
+    colorsIndexes.push(j+1);
+  }
   
+  for (let i = 0; i < size; i++) {
+    min=0;
+    max = colorsIndexes.length-1;
+    randomIndex = Math.floor(Math.random() * (max - min + 1)) + min;
 
-  for (let i = 0; i < req.body.size; i++) {
-    if (lastRandom === undefined) {
-      random = Math.floor(Math.random() * (max - min + 1)) + min;
-    } else {
-      random = Math.floor(Math.random() * (max - min)) + min;
-      if (random >= lastRandom) random += 1;
+    code.push(colorsIndexes[randomIndex]);
+    colorsIndexes.splice(randomIndex,1);
+    if(colorsIndexes.length === 0){
+      for (let j = 0; j < colorsAmount; j++){
+        colorsIndexes.push(j+1);
+      }
     }
-    lastRandom = random;
-    code.push(random);
   }
 
   return code;
@@ -48,19 +56,10 @@ exports.index = (req, res) => {
 let gameMap = new Map();
 
 exports.createNewGame = (req, res) => {
-  let min = 1;
-  let max = req.body.colors;
-  let random, lastRandom;
-  let code = [];
-  // for (let i = 0; i < req.body.size; i++) {
-  //   let randomNumber = parseInt(Math.random() * (max - min + 1), 10) + min;
-  //   code.push(randomNumber);
-  // }
-
-  
+  let code = generateRandomCode2(req.body.colors, req.body.size);
 
   req.body.game = uuidv1();
-  req.body.code = generateRandomCode();
+  req.body.code = code;
 
   let singleGame = {
     code: code,
