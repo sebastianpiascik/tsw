@@ -1,6 +1,4 @@
-# client
-
-// konie i wyniki w klasie moga byc
+# Vue-express App
 
 ## Project setup
 ```
