@@ -19,31 +19,31 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      user: {
-        email: null,
-        password: null
-      },
-      formErr: false
-    };
-  },
-  methods: {
-    login() {
-      console.log("logowanie..");
-      let data = {
-        email: this.user.email,
-        password: this.user.password
+  export default {
+    data() {
+      return {
+        user: {
+          email: null,
+          password: null
+        },
+        formErr: false
       };
-      this.$store
-        .dispatch("LOGIN", data)
-        .then(() => this.$router.push("/"))
-        .catch(err => {
-          this.formErr = true;
-          console.log(err);
-        });
+    },
+    methods: {
+      login() {
+        console.log("logowanie..");
+        let data = {
+          email: this.user.email,
+          password: this.user.password
+        };
+        this.$store
+          .dispatch("LOGIN", data)
+          .then(() => this.$router.push("/"))
+          .catch(err => {
+            this.formErr = true;
+            console.log(err);
+          });
+      }
     }
-  }
-};
+  };
 </script>

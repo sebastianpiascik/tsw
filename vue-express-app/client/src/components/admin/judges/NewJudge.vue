@@ -18,24 +18,24 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      judge: {
-        sedzia: null,
-        kraj: null
+  export default {
+    data() {
+      return {
+        judge: {
+          sedzia: null,
+          kraj: null
+        }
+      };
+    },
+    methods: {
+      async addJudge(e) {
+        e.preventDefault();
+        await this.$store.dispatch("SAVE_JUDGE", this.judge);
+        this.$store
+          .dispatch("GET_JUDGES")
+          .then(() => this.$router.push({ name: "Judges" }))
+          .catch(err => console.log(err));
       }
-    };
-  },
-  methods: {
-    async addJudge(e) {
-      e.preventDefault();
-      await this.$store.dispatch("SAVE_JUDGE", this.judge);
-      this.$store
-        .dispatch("GET_JUDGES")
-        .then(() => this.$router.push({ name: "Judges" }))
-        .catch(err => console.log(err));
     }
-  }
-};
+  };
 </script>

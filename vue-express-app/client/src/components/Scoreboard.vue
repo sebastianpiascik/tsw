@@ -74,136 +74,136 @@
 </template>
 
 <script>
-import Spinner from "@/components/Spinner";
+  import Spinner from "@/components/Spinner";
 
-export default {
-  components: {
-    Spinner
-  },
-  data() {
-    return {
-      isLoading: true,
-      currentHorseClass: null,
-      isArbitrator: false
-    };
-  },
-  computed: {
-    horseClasses() {
-      return this.$store.getters.HORSE_CLASSES;
+  export default {
+    components: {
+      Spinner
     },
-    classHorses() {
-      return this.$store.getters.HORSES.filter(
-        horse => parseInt(horse.klasa) === this.currentHorseClass.id
-      );
+    data() {
+      return {
+        isLoading: true,
+        currentHorseClass: null,
+        isArbitrator: false
+      };
     },
-    horsesWithArbitrator() {
-      return this.$store.getters.HORSES.filter(horse => horse.wynik.rozjemca);
-    },
-    isAuth() {
-      return this.$store.getters.IS_AUTH;
-    }
-  },
-  mounted() {
-    this.getHorseClasses();
-  },
-  methods: {
-    async getHorseClasses() {
-      this.currentHorseClass = this.horseClasses[0];
-      await this.sortClassHorses();
-      this.isArbitrator = await this.isNeededArbitrator();
-      this.isLoading = false;
-    },
-    isNeededArbitrator(){
-      let isNeeded = false;
-      let wynikiRozjemca = [];
-      let uniqueWyniki = [];
-
-      this.horsesWithArbitrator.forEach(horse => {
-        if(horse.wynik.rozjemca){
-          wynikiRozjemca.push(horse.wynik.rozjemca);
-          isNeeded = true;
-        }
-      });
-
-      uniqueWyniki = [...new Set(wynikiRozjemca)];
-      if(uniqueWyniki.length === wynikiRozjemca.length){
-        isNeeded = false;
+    computed: {
+      horseClasses() {
+        return this.$store.getters.HORSE_CLASSES;
+      },
+      classHorses() {
+        return this.$store.getters.HORSES.filter(
+          horse => parseInt(horse.klasa) === this.currentHorseClass.id
+        );
+      },
+      horsesWithArbitrator() {
+        return this.$store.getters.HORSES.filter(horse => horse.wynik.rozjemca);
+      },
+      isAuth() {
+        return this.$store.getters.IS_AUTH;
       }
-      return isNeeded;
     },
-    savePlaces(){
-      this.horsesWithArbitrator.forEach(horse => {
-        this.$store.dispatch("EDIT_HORSE", horse);
-        console.log('b');
-      });
-      this.isLoading = true;
+    mounted() {
       this.getHorseClasses();
     },
-    async getNextClass() {
-      this.isLoading = true;
-      let index = await this.horseClasses.indexOf(this.currentHorseClass);
-      if (index >= 0 && index < this.horseClasses.length - 1)
-        this.currentHorseClass = this.horseClasses[index + 1];
-      else this.currentHorseClass = this.horseClasses[0];
+    methods: {
+      async getHorseClasses() {
+        this.currentHorseClass = this.horseClasses[0];
+        await this.sortClassHorses();
+        this.isArbitrator = await this.isNeededArbitrator();
+        this.isLoading = false;
+      },
+      isNeededArbitrator(){
+        let isNeeded = false;
+        let wynikiRozjemca = [];
+        let uniqueWyniki = [];
 
-      await this.sortClassHorses();
-      this.isArbitrator = await this.isNeededArbitrator();
-      this.isLoading = false;
-    },
-    async getPrevClass() {
-      this.isLoading = true;
-      let index = await this.horseClasses.indexOf(this.currentHorseClass);
-      if (index > 0) this.currentHorseClass = this.horseClasses[index - 1];
-      else
-        this.currentHorseClass = this.horseClasses[
-          this.horseClasses.length - 1
-        ];
-
-      await this.sortClassHorses();
-      this.isArbitrator = await this.isNeededArbitrator();
-      this.isLoading = false;
-    },
-    async sortClassHorses() {
-      await this.calculateHorsesPoints();
-      this.classHorses.sort(this.sortByPoints);
-    },
-    sortByPoints(a, b) {
-      if (a.suma.sumaPunktow === b.suma.sumaPunktow) {
-        if (a.suma.typ === b.suma.typ) {
-          if (a.suma.ruch === b.suma.ruch) {
-            if(a.wynik.rozjemca && b.wynik.rozjemca){
-              return b.wynik.rozjemca - a.wynik.rozjemca;
-            } else{
-              a.wynik.rozjemca = 1;
-              b.wynik.rozjemca = 1;
-            }
-          }
-          return b.suma.ruch - a.suma.ruch;
-        }
-        return b.suma.typ - a.suma.typ;
-      }
-      return b.suma.sumaPunktow - a.suma.sumaPunktow;
-    },
-    calculateHorsesPoints() {
-      this.classHorses.map(horse => {
-        horse.suma = {
-          sumaPunktow: 0,
-          typ: 0,
-          ruch: 0
-        };
-        horse.wynik.noty.forEach(singleResult => {
-          let singleResultEntries = Object.entries(singleResult);
-          for (const singleResultEntry of singleResultEntries) {
-            if (singleResultEntry[0] === "typ")
-              horse.suma.typ += parseFloat(singleResultEntry[1]);
-            if (singleResultEntry[0] === "ruch")
-              horse.suma.ruch += parseFloat(singleResultEntry[1]);
-            horse.suma.sumaPunktow += parseFloat(singleResultEntry[1]);
+        this.horsesWithArbitrator.forEach(horse => {
+          if(horse.wynik.rozjemca){
+            wynikiRozjemca.push(horse.wynik.rozjemca);
+            isNeeded = true;
           }
         });
-      });
-    }
-  },
-  sockets: {}
-};
+
+        uniqueWyniki = [...new Set(wynikiRozjemca)];
+        if(uniqueWyniki.length === wynikiRozjemca.length){
+          isNeeded = false;
+        }
+        return isNeeded;
+      },
+      savePlaces(){
+        this.horsesWithArbitrator.forEach(horse => {
+          this.$store.dispatch("EDIT_HORSE", horse);
+          console.log('b');
+        });
+        this.isLoading = true;
+        this.getHorseClasses();
+      },
+      async getNextClass() {
+        this.isLoading = true;
+        let index = await this.horseClasses.indexOf(this.currentHorseClass);
+        if (index >= 0 && index < this.horseClasses.length - 1)
+          this.currentHorseClass = this.horseClasses[index + 1];
+        else this.currentHorseClass = this.horseClasses[0];
+
+        await this.sortClassHorses();
+        this.isArbitrator = await this.isNeededArbitrator();
+        this.isLoading = false;
+      },
+      async getPrevClass() {
+        this.isLoading = true;
+        let index = await this.horseClasses.indexOf(this.currentHorseClass);
+        if (index > 0) this.currentHorseClass = this.horseClasses[index - 1];
+        else
+          this.currentHorseClass = this.horseClasses[
+            this.horseClasses.length - 1
+          ];
+
+        await this.sortClassHorses();
+        this.isArbitrator = await this.isNeededArbitrator();
+        this.isLoading = false;
+      },
+      async sortClassHorses() {
+        await this.calculateHorsesPoints();
+        this.classHorses.sort(this.sortByPoints);
+      },
+      sortByPoints(a, b) {
+        if (a.suma.sumaPunktow === b.suma.sumaPunktow) {
+          if (a.suma.typ === b.suma.typ) {
+            if (a.suma.ruch === b.suma.ruch) {
+              if(a.wynik.rozjemca && b.wynik.rozjemca){
+                return b.wynik.rozjemca - a.wynik.rozjemca;
+              } else{
+                a.wynik.rozjemca = 1;
+                b.wynik.rozjemca = 1;
+              }
+            }
+            return b.suma.ruch - a.suma.ruch;
+          }
+          return b.suma.typ - a.suma.typ;
+        }
+        return b.suma.sumaPunktow - a.suma.sumaPunktow;
+      },
+      calculateHorsesPoints() {
+        this.classHorses.map(horse => {
+          horse.suma = {
+            sumaPunktow: 0,
+            typ: 0,
+            ruch: 0
+          };
+          horse.wynik.noty.forEach(singleResult => {
+            let singleResultEntries = Object.entries(singleResult);
+            for (const singleResultEntry of singleResultEntries) {
+              if (singleResultEntry[0] === "typ")
+                horse.suma.typ += parseFloat(singleResultEntry[1]);
+              if (singleResultEntry[0] === "ruch")
+                horse.suma.ruch += parseFloat(singleResultEntry[1]);
+              horse.suma.sumaPunktow += parseFloat(singleResultEntry[1]);
+            }
+          });
+        });
+      }
+    },
+    sockets: {}
+  };
 </script>

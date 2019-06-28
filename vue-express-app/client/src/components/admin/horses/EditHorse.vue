@@ -136,23 +136,23 @@
 </template>
 
 <script>
-export default {
-  computed: {
-    horse() {
-      return this.$store.getters.HORSES.filter(
-        horse => horse.id === this.$route.params.id
-      )[0];
+  export default {
+    computed: {
+      horse() {
+        return this.$store.getters.HORSES.filter(
+          horse => horse.id === this.$route.params.id
+        )[0];
+      },
+      horseClasses() {
+        return this.$store.getters.HORSE_CLASSES;
+      }
     },
-    horseClasses() {
-      return this.$store.getters.HORSE_CLASSES;
+    methods: {
+      async updateHorse(e) {
+        e.preventDefault();
+        await this.$store.dispatch("EDIT_HORSE", this.horse);
+        this.$router.push({ name: "Horses" });
+      }
     }
-  },
-  methods: {
-    async updateHorse(e) {
-      e.preventDefault();
-      await this.$store.dispatch("EDIT_HORSE", this.horse);
-      this.$router.push({ name: "Horses" });
-    }
-  }
-};
+  };
 </script>

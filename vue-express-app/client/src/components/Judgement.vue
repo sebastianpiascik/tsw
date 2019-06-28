@@ -100,90 +100,90 @@
 </template>
 
 <script>
-import Spinner from "@/components/Spinner";
-export default {
-  components: { Spinner },
-  data() {
-    return {
-      isLoading: true
-    };
-  },
-  computed: {
-    isAuth() {
-      return this.$store.getters.IS_AUTH;
-    },
-    judges() {
-      return this.$store.getters.JUDGES;
-    },
-    horse() {
-      return this.$store.getters.HORSES.filter(
-        horse => horse.id === this.$route.params.id
-      )[0];
-    },
-    horseClass() {
-      return this.$store.getters.HORSE_CLASSES.filter(
-        horseClass => horseClass.id === this.horse.klasa
-      )[0];
-    }
-  },
-  mounted() {
-    this.getData();
-  },
-  methods: {
-    async getData() {
-      this.classJudges = await this.setCurrentHorseClassJudges(
-        this.horseClass.komisja
-      );
-      await this.calculateHorsesPoints();
-      this.isLoading = false;
-    },
-    async setCurrentHorseClassJudges(komisja) {
-      const judgesArray = [];
-      this.judges.forEach(judge => {
-        komisja.forEach(sedziaId => {
-          if (judge.id === sedziaId) judgesArray.push(judge);
-        });
-      });
-
-      let difference =
-        this.horseClass.komisja.length - this.horse.wynik.noty.length;
-      if (difference > 0) {
-        for (let i = 0; i < difference; i++) {
-          this.horse.wynik.noty.push({
-            typ: 0,
-            glowa: 0,
-            kloda: 0,
-            nogi: 0,
-            ruch: 0
-          });
-        }
-      }
-      return judgesArray;
-    },
-    calculateHorsesPoints() {
-      this.horse.suma = {
-        sumaPunktow: 0,
-        typ: 0,
-        ruch: 0
+  import Spinner from "@/components/Spinner";
+  export default {
+    components: { Spinner },
+    data() {
+      return {
+        isLoading: true
       };
-      this.horse.wynik.noty.forEach(singleResult => {
-        let singleResultEntries = Object.entries(singleResult);
-        for (const singleResultEntry of singleResultEntries) {
-          if (singleResultEntry[0] === "typ")
-            this.horse.suma.typ += parseFloat(singleResultEntry[1]);
-          if (singleResultEntry[0] === "ruch")
-            this.horse.suma.ruch += parseFloat(singleResultEntry[1]);
-          this.horse.suma.sumaPunktow += parseFloat(singleResultEntry[1]);
-        }
-      });
     },
-    async confirmChanges() {
-      this.isLoading = true;
-      await this.calculateHorsesPoints();
-      await this.$store.dispatch("EDIT_HORSE", this.horse);
-      this.$socket.emit('update scoreboard', this.horse);
-      this.$router.push({ name: "Scoreboard" });
+    computed: {
+      isAuth() {
+        return this.$store.getters.IS_AUTH;
+      },
+      judges() {
+        return this.$store.getters.JUDGES;
+      },
+      horse() {
+        return this.$store.getters.HORSES.filter(
+          horse => horse.id === this.$route.params.id
+        )[0];
+      },
+      horseClass() {
+        return this.$store.getters.HORSE_CLASSES.filter(
+          horseClass => horseClass.id === this.horse.klasa
+        )[0];
+      }
+    },
+    mounted() {
+      this.getData();
+    },
+    methods: {
+      async getData() {
+        this.classJudges = await this.setCurrentHorseClassJudges(
+          this.horseClass.komisja
+        );
+        await this.calculateHorsesPoints();
+        this.isLoading = false;
+      },
+      async setCurrentHorseClassJudges(komisja) {
+        const judgesArray = [];
+        this.judges.forEach(judge => {
+          komisja.forEach(sedziaId => {
+            if (judge.id === sedziaId) judgesArray.push(judge);
+          });
+        });
+
+        let difference =
+          this.horseClass.komisja.length - this.horse.wynik.noty.length;
+        if (difference > 0) {
+          for (let i = 0; i < difference; i++) {
+            this.horse.wynik.noty.push({
+              typ: 0,
+              glowa: 0,
+              kloda: 0,
+              nogi: 0,
+              ruch: 0
+            });
+          }
+        }
+        return judgesArray;
+      },
+      calculateHorsesPoints() {
+        this.horse.suma = {
+          sumaPunktow: 0,
+          typ: 0,
+          ruch: 0
+        };
+        this.horse.wynik.noty.forEach(singleResult => {
+          let singleResultEntries = Object.entries(singleResult);
+          for (const singleResultEntry of singleResultEntries) {
+            if (singleResultEntry[0] === "typ")
+              this.horse.suma.typ += parseFloat(singleResultEntry[1]);
+            if (singleResultEntry[0] === "ruch")
+              this.horse.suma.ruch += parseFloat(singleResultEntry[1]);
+            this.horse.suma.sumaPunktow += parseFloat(singleResultEntry[1]);
+          }
+        });
+      },
+      async confirmChanges() {
+        this.isLoading = true;
+        await this.calculateHorsesPoints();
+        await this.$store.dispatch("EDIT_HORSE", this.horse);
+        this.$socket.emit('update scoreboard', this.horse);
+        this.$router.push({ name: "Scoreboard" });
+      }
     }
-  }
-};
+  };
 </script>

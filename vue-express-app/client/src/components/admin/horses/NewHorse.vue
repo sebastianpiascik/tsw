@@ -136,79 +136,79 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      horse: {
-        numer: null,
-        klasa: null,
-        nazwa: null,
-        kraj: null,
-        rocznik: null,
-        masc: null,
-        plec: null,
-        hodowca: {
+  export default {
+    data() {
+      return {
+        horse: {
+          numer: null,
+          klasa: null,
           nazwa: null,
-          kraj: null
-        },
-        wlasciciel: {
-          nazwa: null,
-          kraj: null
-        },
-        rodowod: {
-          o: {
+          kraj: null,
+          rocznik: null,
+          masc: null,
+          plec: null,
+          hodowca: {
             nazwa: null,
             kraj: null
           },
-          m: {
+          wlasciciel: {
             nazwa: null,
             kraj: null
           },
-          om: {
-            nazwa: null,
-            kraj: null
-          }
-        },
-        wynik: {
-          noty: [
-            {
-              typ: 0,
-              glowa: 0,
-              kloda: 0,
-              nogi: 0,
-              ruch: 0
+          rodowod: {
+            o: {
+              nazwa: null,
+              kraj: null
             },
-            {
-              typ: 0,
-              glowa: 0,
-              kloda: 0,
-              nogi: 0,
-              ruch: 0
+            m: {
+              nazwa: null,
+              kraj: null
             },
-            {
-              typ: 0,
-              glowa: 0,
-              kloda: 0,
-              nogi: 0,
-              ruch: 0
+            om: {
+              nazwa: null,
+              kraj: null
             }
-          ]
+          },
+          wynik: {
+            noty: [
+              {
+                typ: 0,
+                glowa: 0,
+                kloda: 0,
+                nogi: 0,
+                ruch: 0
+              },
+              {
+                typ: 0,
+                glowa: 0,
+                kloda: 0,
+                nogi: 0,
+                ruch: 0
+              },
+              {
+                typ: 0,
+                glowa: 0,
+                kloda: 0,
+                nogi: 0,
+                ruch: 0
+              }
+            ]
+          }
         }
+      };
+    },
+    computed: {
+      horseClasses() {
+        return this.$store.getters.HORSE_CLASSES;
       }
-    };
-  },
-  computed: {
-    horseClasses() {
-      return this.$store.getters.HORSE_CLASSES;
+    },
+    methods: {
+      async addHorse(e) {
+        e.preventDefault();
+        await this.$store.dispatch("SAVE_HORSE", this.horse);
+        await this.$store.dispatch("GET_HORSES");
+        this.$router.push({ name: "Horses" });
+      }
     }
-  },
-  methods: {
-    async addHorse(e) {
-      e.preventDefault();
-      await this.$store.dispatch("SAVE_HORSE", this.horse);
-      await this.$store.dispatch("GET_HORSES");
-      this.$router.push({ name: "Horses" });
-    }
-  }
-};
+  };
 </script>

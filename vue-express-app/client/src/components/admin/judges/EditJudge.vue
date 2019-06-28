@@ -18,20 +18,20 @@
 </template>
 
 <script>
-export default {
-  computed: {
-    judge() {
-      return this.$store.getters.JUDGES.filter(
-        judge => judge.id === this.$route.params.id
-      )[0];
+  export default {
+    computed: {
+      judge() {
+        return this.$store.getters.JUDGES.filter(
+          judge => judge.id === this.$route.params.id
+        )[0];
+      }
+    },
+    methods: {
+      async updateJudge(e) {
+        e.preventDefault();
+        await this.$store.dispatch("EDIT_JUDGE", this.judge);
+        this.$router.push({ name: "Judges" });
+      }
     }
-  },
-  methods: {
-    async updateJudge(e) {
-      e.preventDefault();
-      await this.$store.dispatch("EDIT_JUDGE", this.judge);
-      this.$router.push({ name: "Judges" });
-    }
-  }
-};
+  };
 </script>

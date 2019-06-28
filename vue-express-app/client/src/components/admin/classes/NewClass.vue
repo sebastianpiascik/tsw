@@ -35,33 +35,33 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect";
-export default {
-  components: { Multiselect },
-  data() {
-    return {
-      komisja: [],
-      horseClass: {
-        numer: null,
-        kat: null,
-        komisja: []
-      }
-    };
-  },
-  computed: {
-    judges() {
-      return this.$store.getters.JUDGES;
+  import Multiselect from "vue-multiselect";
+  export default {
+    components: { Multiselect },
+    data() {
+      return {
+        komisja: [],
+        horseClass: {
+          numer: null,
+          kat: null,
+          komisja: []
+        }
+      };
     },
-  },
-  methods: {
-    async addHorseClass(e) {
-      e.preventDefault();
-      let horseClass = this.horseClass;
-      horseClass.komisja = await this.komisja.map(judge => judge.id);
-      await this.$store.dispatch("SAVE_HORSE_CLASS", horseClass);
-      await this.$store.dispatch("GET_HORSE_CLASSES");
-      this.$router.push({ name: "Classes" });
+    computed: {
+      judges() {
+        return this.$store.getters.JUDGES;
+      },
+    },
+    methods: {
+      async addHorseClass(e) {
+        e.preventDefault();
+        let horseClass = this.horseClass;
+        horseClass.komisja = await this.komisja.map(judge => judge.id);
+        await this.$store.dispatch("SAVE_HORSE_CLASS", horseClass);
+        await this.$store.dispatch("GET_HORSE_CLASSES");
+        this.$router.push({ name: "Classes" });
+      }
     }
-  }
-};
+  };
 </script>

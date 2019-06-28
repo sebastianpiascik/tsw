@@ -35,47 +35,47 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect";
-export default {
-  components: { Multiselect },
-  data() {
-    return {
-      komisja: [],
-      isLoading: true
-    };
-  },
-  computed: {
-    judges() {
-      return this.$store.getters.JUDGES;
+  import Multiselect from "vue-multiselect";
+  export default {
+    components: { Multiselect },
+    data() {
+      return {
+        komisja: [],
+        isLoading: true
+      };
     },
-    horseClass() {
-      return this.$store.getters.HORSE_CLASSES.filter(
-        horseClass => horseClass.id === this.$route.params.id
-      )[0];
-    }
-  },
-  mounted() {
-    this.getCommission();
-  },
-  methods: {
-    async updateClass(e) {
-      e.preventDefault();
-      let horseClass = this.horseClass;
-      horseClass.komisja = await this.komisja.map(judge => judge.id);
-      await this.$store.dispatch("EDIT_HORSE_CLASS", horseClass);
-      this.$router.push({ name: "Classes" });
+    computed: {
+      judges() {
+        return this.$store.getters.JUDGES;
+      },
+      horseClass() {
+        return this.$store.getters.HORSE_CLASSES.filter(
+          horseClass => horseClass.id === this.$route.params.id
+        )[0];
+      }
     },
-    async getCommission() {
-      let that = this;
-      await this.judges.forEach(judge => {
-        that.horseClass.komisja.forEach(judgeId => {
-          if (judge.id === judgeId) {
-            that.komisja.push(judge);
-          }
+    mounted() {
+      this.getCommission();
+    },
+    methods: {
+      async updateClass(e) {
+        e.preventDefault();
+        let horseClass = this.horseClass;
+        horseClass.komisja = await this.komisja.map(judge => judge.id);
+        await this.$store.dispatch("EDIT_HORSE_CLASS", horseClass);
+        this.$router.push({ name: "Classes" });
+      },
+      async getCommission() {
+        let that = this;
+        await this.judges.forEach(judge => {
+          that.horseClass.komisja.forEach(judgeId => {
+            if (judge.id === judgeId) {
+              that.komisja.push(judge);
+            }
+          });
         });
-      });
-      this.isLoading = false;
+        this.isLoading = false;
+      }
     }
-  }
-};
+  };
 </script>

@@ -39,11 +39,11 @@ app.use(passport.session());
 app.use("/api", require('./routes'));
 require('./config/passport');
 
-const server = app.listen(port, '192.168.56.1', () => {
+const server = app.listen(port, '0.0.0.0', () => {
   console.log(`Express działa na porcie ${port}`);
 });
 const io = socketio.listen(server);
-io.origins('*:*');
+// io.origins('*:*');
 
 io.on("connect", socket => {
   console.log("Socket.io: połączono.");
