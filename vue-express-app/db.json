@@ -403,12 +403,12 @@
           {
             "typ": "20",
             "glowa": "12.5",
-            "kloda": "14.5",
+            "kloda": "15",
             "nogi": 20,
             "ruch": "20"
           },
           {
-            "typ": "17.5",
+            "typ": "18.5",
             "glowa": 14.5,
             "kloda": 18.5,
             "nogi": 18,
@@ -419,21 +419,21 @@
             "glowa": 14,
             "kloda": 19.5,
             "nogi": "12",
-            "ruch": "17"
+            "ruch": "17.5"
           },
           {
             "typ": 14,
             "glowa": 14,
-            "kloda": "18.5",
-            "nogi": 11.5,
+            "kloda": "19.5",
+            "nogi": "12",
             "ruch": 18
           }
         ]
       },
       "suma": {
-        "sumaPunktow": 421.5,
-        "typ": 91,
-        "ruch": 95
+        "sumaPunktow": 425,
+        "typ": 92,
+        "ruch": 95.5
       }
     },
     {

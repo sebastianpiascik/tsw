@@ -21,54 +21,54 @@
 </template>
 
 <script>
-import Spinner from "@/components/Spinner";
+  import Spinner from "@/components/Spinner";
 
-export default {
-  components: {
-    Spinner
-  },
-  computed: {
-    user() {
-      return this.$store.getters.USER;
+  export default {
+    components: {
+      Spinner
     },
-    isAuth() {
-      return this.$store.getters.IS_AUTH;
-    }
-  },
-  data() {
-    return {
-      isLoading: true
-    };
-  },
-  mounted() {
-    this.getData();
-    this.$socket.emit("test");
-  },
-  methods: {
-    async getData() {
-      await this.$store.dispatch("GET_HORSES");
-      await this.$store.dispatch("GET_HORSE_CLASSES");
-      await this.$store.dispatch("GET_JUDGES");
-      this.isLoading = false;
+    computed: {
+      user() {
+        return this.$store.getters.USER;
+      },
+      isAuth() {
+        return this.$store.getters.IS_AUTH;
+      }
     },
-    logout() {
-      this.$store
-        .dispatch("LOGOUT")
-        .then(() => this.$router.push("/"))
-        .catch(err => console.log(err));
-    }
-  },
-  sockets: {
-    async updateData() {
-      this.isLoading = true;
-      await this.getData();
-      this.isLoading = false;
+    data() {
+      return {
+        isLoading: true
+      };
     },
-    test(){
-      console.log("test App");
+    mounted() {
+      this.getData();
+      this.$socket.emit("test");
+    },
+    methods: {
+      async getData() {
+        await this.$store.dispatch("GET_HORSES");
+        await this.$store.dispatch("GET_HORSE_CLASSES");
+        await this.$store.dispatch("GET_JUDGES");
+        this.isLoading = false;
+      },
+      logout() {
+        this.$store
+          .dispatch("LOGOUT")
+          .then(() => this.$router.push("/"))
+          .catch(err => console.log(err));
+      }
+    },
+    sockets: {
+      async updateData() {
+        this.isLoading = true;
+        await this.getData();
+        this.isLoading = false;
+      },
+      test(){
+        console.log("test App");
+      }
     }
-  }
-};
+  };
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

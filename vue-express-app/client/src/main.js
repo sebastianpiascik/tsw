@@ -16,7 +16,7 @@ let connectionOptions =  {
 
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: 'http://localhost:8081/',
+  connection: `http://${window.location.hostname}:8081/`,
   vuex: {
     store,
     actionPrefix: 'SOCKET_',
