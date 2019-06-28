@@ -1,0 +1,46 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+canvas{
+  width: 300px;
+}
+
+.canvas-container{
+  width: 45%;
+  display: inline-block;
+}
+
+.wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.communities{
+  height: 80vh;
+  overflow: scroll;
+  ul{
+    li{
+      cursor: pointer;
+    }
+  }
+}
+
+.map{
+  position: relative;
+  &__pointer{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    background-color: rgba(51, 39, 223, 0.4);
+  }
+}
+
+.center {
+  text-align: center;
+}

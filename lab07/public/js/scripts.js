@@ -32,11 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const buildMovesTable = movesContainer => {
     let filledMovesNumber = 0;
-    if(currentGame.moves){
+    if (currentGame.moves) {
       filledMovesNumber = currentGame.moves.length;
     }
     let movesTable = createNode("div", { class: "game-table" });
-    for (let i = currentGame.steps+filledMovesNumber; i >= 1; i--) {
+    let movesTableInner = createNode("div", { class: "game-table__inner" });
+    for (let i = currentGame.steps + filledMovesNumber; i >= 1; i--) {
       let movesTableRow = createNode("div", {
         class: `game-table__row game-table__row-${i}`
       });
@@ -56,20 +57,19 @@ document.addEventListener("DOMContentLoaded", () => {
         class: `game-table__row__element game-table__row__element-result`
       });
       movesTableRow.appendChild(movesTableRowElement);
-      movesTable.appendChild(movesTableRow);
+      movesTableInner.appendChild(movesTableRow);
     }
-
+    movesTable.appendChild(movesTableInner);
     movesContainer.appendChild(movesTable);
   };
 
   const showPreviousMoves = () => {
     currentGame.moves.forEach(element => {
-
       element.move.forEach((el, index) => {
         let colorElement = document.querySelector(
-          `.game-table__row__element-${currentStep}${index+1} button`
+          `.game-table__row__element-${currentStep}${index + 1} button`
         );
-        colorElement.style.backgroundColor = currentGame.colorCodes[el-1];
+        colorElement.style.backgroundColor = currentGame.colorCodes[el - 1];
       });
 
       printResult(element.result);
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const showAvailableColors = movesContainer => {
-    let movesTable = document.querySelector('.game-table');
+    let movesTable = document.querySelector(".game-table");
     let movesTableRow = createNode("div", {
       class: `game-table__row game-table__row-colors`,
       style: "border-top:1px solid rgba(255,255,255,0.1)"
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         style: "margin-top:10px"
       });
 
-      colorElement.style.backgroundColor = currentGame.colorCodes[i-1];
+      colorElement.style.backgroundColor = currentGame.colorCodes[i - 1];
       colorElement.addEventListener("click", selectColor);
       movesTableRowElement.appendChild(colorElement);
 
@@ -109,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let movesContainer = document.querySelector(".game__moves__table");
     movesContainer.innerHTML = "";
     document.getElementById("checkColors").style.display = "inline-block";
+    document.getElementById("previousMove").style.display = "inline-block";
 
     generateRandomColors();
 
@@ -122,6 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let movesContainer = document.querySelector(".game__moves__table");
     movesContainer.innerHTML = "";
     document.getElementById("checkColors").style.display = "inline-block";
+    document.getElementById("previousMove").style.display = "inline-block";
 
     generateRandomColors();
 
@@ -137,6 +139,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let movesContainer = document.querySelector(".game__moves__table");
     let progressScreen = document.querySelector(".game__progress");
     let checkColorsButton = document.getElementById("checkColors");
+    let previousMoveButton = document.getElementById("previousMove");
+    previousMoveButton.style.display = "none";
     progressScreen.style.display = "none";
     checkColorsButton.style.display = "none";
     welcomeButtonLoad.style.display = "none";
@@ -150,6 +154,13 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       showNewGameScreen();
     }, 1500);
+  };
+
+  const scrollGameMovesSection = e => {
+
+    let gameTableInner = document.querySelector('.game-table__inner');
+    gameTableInner.scrollTop = gameTableInner.scrollHeight - ((currentStep+3) * 50);
+
   };
 
   const selectColor = e => {
@@ -168,6 +179,22 @@ document.addEventListener("DOMContentLoaded", () => {
       `.game-table__row__element-${currentStep}${selectedColors.length} button`
     );
     colorElement.style.backgroundColor = selectedColorBg;
+  };
+
+  const undoColorSelect = e => {
+    if (selectedColors.length == 0) {
+      printError("Nie można cofnąc ruchu");
+      return;
+    }
+
+    selectedColors.pop();
+    printGameProgress(`Cofnięto kolor: , twój ruch: ${selectedColors}`);
+
+    let colorElement = document.querySelector(
+      `.game-table__row__element-${currentStep}${selectedColors.length +
+        1} button`
+    );
+    colorElement.style.backgroundColor = "rgba(255,255,255,0.15)";
   };
 
   const printResult = result => {
@@ -193,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const printError = err => {
-    console.log("==== Error: "+ err);
+    console.log("==== Error: " + err);
   };
 
   const printGameProgress = txt => {
@@ -216,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (!el.value) {
-        let formErr = createNode('span', {'class': 'err'});
+        let formErr = createNode("span", { class: "err" });
         let formErrText = document.createTextNode("Uzupełnij to pole");
         formErr.appendChild(formErrText);
         el.parentNode.appendChild(formErr);
@@ -321,6 +348,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (jsonResponse.steps === 0) {
           buildResultUI(2);
         }
+        scrollGameMovesSection();
       } else {
         printError("Nie można wykonać ruchu");
       }
@@ -377,7 +405,7 @@ document.addEventListener("DOMContentLoaded", () => {
     progressScreen.style.display = "none";
     if (localStorage.getItem("gameId")) {
       welcomeButtonLoad.style.display = "inline-block";
-    } else{
+    } else {
       welcomeButtonLoad.style.display = "none";
     }
   };
@@ -402,6 +430,9 @@ document.addEventListener("DOMContentLoaded", () => {
     newGameScreen.style.display = "none";
     gameScreen.style.display = "block";
     progressScreen.style.display = "block";
+
+    let gameTableInner = document.querySelector('.game-table__inner');
+    gameTableInner.scrollTop = gameTableInner.scrollHeight;
   };
 
   let welcomeButtonCreate = document.getElementById("welcomeButtonCreate");
@@ -416,12 +447,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let newGameButton = document.getElementById("createNewGame");
   let makeMoveButton = document.getElementById("checkColors");
+  let previousMoveButton = document.getElementById("previousMove");
 
   newGameButton.addEventListener("click", createNewGame, false);
   makeMoveButton.addEventListener("click", makeMove, false);
+  previousMoveButton.addEventListener("click", undoColorSelect, false);
 
   let backHomeArrow = document.querySelector(".back-home");
   backHomeArrow.addEventListener("click", showWelcomeScreen);
+
+  
 
   printGameProgress(
     `Witaj w grze MasterMind ${localStorage.getItem("gameId")}`

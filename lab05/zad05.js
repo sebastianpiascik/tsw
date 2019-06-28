@@ -2,6 +2,7 @@
 "use strict";
 
 const fib = (arg)  => {
+    console.log(arg);
     if (arg <= 0) {
         return 0;
     }
@@ -13,6 +14,7 @@ const fib = (arg)  => {
 
 const memo = (cache, fun) => {
     return function(arg){
+        console.log(arguments);
         if(typeof cache[arg] !== 'undefined'){
             return cache[arg];
         } else{
@@ -26,6 +28,6 @@ const fibonacci = memo([0, 1], (recur, n) => {
 });
 
 
-let n = 7;
-console.log(fib(n));
+let n = 2;
+// console.log(fib(n));
 console.log(fibonacci(n));

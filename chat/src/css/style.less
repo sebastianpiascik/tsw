@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&subset=latin-ext");
+
+@black: #232529;
+@color: #a95d38;
+
+@singleColorHeight: 40px;
+
+* {
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  font: 14px "Poppins", sans-serif;
+  box-sizing: border-box;
+
+}
+
+body {
+  background-color: @black;
+}
+
+h1 {
+  font-size: 40px;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+h2 {
+  color: @color;
+  font-size: 22px;
+  text-decoration: underline;
+  text-transform: capitalize;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+label {
+  color: @color;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+span {
+  &.single-result {
+    background-color: rgba(255, 255, 255, 0.15);
+    margin: 0;
+    padding: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 2px;
+  }
+}
+
+input {
+  outline: none;
+  border: none;
+  background: transparent;
+  margin: 0;
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  transition: 0.3s;
+  &:hover,
+  &:focus,
+  &:active {
+    border-bottom: 1px solid @color;
+  }
+}
+
+input[type="checkbox"] {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+select {
+  option {
+    color: @black;
+  }
+}
+
+button {
+  outline: none;
+  border: none;
+  background: transparent;
+  border: 1px solid #fff;
+  padding: 12px 26px;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 30px;
+  &:hover {
+    background-color: #fff;
+    color: @black;
+  }
+}
+
+.form {
+  margin-top: 50px;
+  &__element {
+    margin-bottom: 20px;
+    &:last-child {
+      text-align: right;
+    }
+  }
+  .err {
+    color: red;
+    font-size: 12px;
+  }
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10vh 5vw;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  & > div{
+    min-width: 40vw;
+    text-align: center;
+  }
+  &__connection{
+    button{
+      margin: 0 10px 20px;
+    }
+  }
+  &__chat{
+    display: none;
+  }
+  &__messages{
+    ul{
+      list-style-type: square;
+      li{
+        padding: 2px 0;
+        &.highlighted{
+          color:orangered;
+        }
+      }
+    }
+  }
+}

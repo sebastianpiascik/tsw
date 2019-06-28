@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Prosty klient WebSockets</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+
+  <body>
+    <div class="app">
+      <div class="app__connection">
+        <form class="form" action="">
+          <div class="form__element">
+            <input
+              id="userName"
+              name="userName"
+              autocomplete="off"
+              placeholder="Wpisz nick"
+            />
+          </div>
+          <div class="form__element">
+            <button type="submit" id="open" type="button">Połącz</button>
+          </div>
+          <!-- <button id="close" type="button" >Rozłącz</button> -->
+        </form>
+      </div>
+      <div class="app__chat">
+        <form class="form" action="">
+          <div class="form__element">
+            <input
+              id="message"
+              autocomplete="off"
+              placeholder="Twoja wiadomość"
+            />
+          </div>
+          <div class="form__element">
+            <button type="submit" id="send">Send</button>
+          </div>
+        </form>
+        <div class="app__messages">
+          <ul id="messages"></ul>
+        </div>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="js/skrypt.js"></script>
+  </body>
+</html>

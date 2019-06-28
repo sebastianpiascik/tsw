@@ -2,6 +2,7 @@
 "use strict";
 
 function defFun(fun, types) {
+  console.log(arguments);
   fun.typeConstr = arguments[1];
   return fun;
 }

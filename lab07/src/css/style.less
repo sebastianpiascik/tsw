@@ -157,12 +157,11 @@ button {
     padding: 10px 20px 10px 10px;
     cursor: pointer;
     transition: 0.3s;
-    &:hover{
+    &:hover {
       left: 15px;
       color: @color;
-      span{
-        
-      background-color: @color;
+      span {
+        background-color: @color;
       }
     }
     span {
@@ -198,13 +197,29 @@ button {
     display: none;
   }
   &__moves {
-    width: 55%;
+    width: 100%;
     display: none;
     text-align: center;
     margin: 20px 0 40px;
     .game-table {
       display: inline-flex;
       flex-direction: column;
+      &__inner {
+        display: inline-flex;
+        flex-direction: column;
+        max-height: 400px;
+        overflow-y: scroll;
+        overflow-x: visible;
+        scrollbar-width: none;
+        width: 100%;
+        padding-right: 70px;
+        left: 35px;
+        position: relative;
+        &::-webkit-scrollbar {
+          width: 0px; /* Remove scrollbar space */
+          background: transparent; /* Optional: just make scrollbar invisible */
+        }
+      }
       &__row {
         text-align: center;
         position: relative;
@@ -212,6 +227,9 @@ button {
         width: auto;
         height: @singleColorHeight;
         margin: 5px;
+        &-colors{
+          height: auto;
+        }
         &__element {
           display: inline-block;
           width: auto;
