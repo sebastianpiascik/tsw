@@ -42,6 +42,7 @@ export default {
   },
   mounted() {
     this.getData();
+    this.$socket.emit("test");
   },
   methods: {
     async getData() {
@@ -62,6 +63,9 @@ export default {
       this.isLoading = true;
       await this.getData();
       this.isLoading = false;
+    },
+    test(){
+      console.log("test App");
     }
   }
 };
