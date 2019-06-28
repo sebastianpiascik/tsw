@@ -4,20 +4,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
-let users = [
-  {
-    id: 1,
-    name: "admin",
-    email: "admin@admin.pl",
-    password: "haslo"
-  },
-  {
-    id: 2,
-    name: "user",
-    email: "user@user.pl",
-    password: "haslo"
-  }
-];
+let users = require('./users.json'); 
 
 passport.use(
   new LocalStrategy(

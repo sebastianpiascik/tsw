@@ -3,20 +3,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-let users = [
-  {
-    id: 1,
-    name: "admin",
-    email: "admin@admin.pl",
-    password: "haslo"
-  },
-  {
-    id: 2,
-    name: "user",
-    email: "user@user.pl",
-    password: "haslo"
-  }
-];
+let users = require('./../../config/users.json'); 
 
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {

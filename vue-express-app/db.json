@@ -34,6 +34,11 @@
       "id": 7,
       "sedzia": "Shayna Rutherford",
       "kraj": "PR"
+    },
+    {
+      "sedzia": "cxzcz",
+      "kraj": "PL",
+      "id": 8
     }
   ],
   "klasy": [
@@ -392,7 +397,7 @@
             "typ": "20",
             "glowa": "20",
             "kloda": "11.5",
-            "nogi": "16",
+            "nogi": "16.5",
             "ruch": "20"
           },
           {
@@ -413,7 +418,7 @@
             "typ": 19.5,
             "glowa": 14,
             "kloda": 19.5,
-            "nogi": 11.5,
+            "nogi": "12",
             "ruch": "17"
           },
           {
@@ -426,7 +431,7 @@
         ]
       },
       "suma": {
-        "sumaPunktow": 420.5,
+        "sumaPunktow": 421.5,
         "typ": 91,
         "ruch": 95
       }
