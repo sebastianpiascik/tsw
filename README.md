@@ -1,3 +1,3 @@
 # Sebastian Piaścik
 
-Technologie Sieci Web
+Web technologies
